@@ -1,0 +1,58 @@
+# Step 1: Remove any code that might be on disk.
+- name: Remove old repo
+  file:
+    path: '{{git_checkout_dir}}'
+    state: absent
+
+# Step 2: Checkout code.
+- name: Checkout tag
+  git:
+    repo: '{{repo}}'
+    dest: '{{git_checkout_dir}}'
+    version: '{{node_version}}'
+    update: yes
+
+# Step 3: Add a replacement
+- name: Replace tendermint in go.mod 
+  lineinfile:
+    insertafter: replace \(
+    line: '    github.com/tendermint/tendermint => github.com/skip-mev/mev-tendermint {{skip_version}}'
+    path: '{{git_checkout_dir}}/go.mod'
+    state: present
+- name: go mod tidy
+  command: go mod tidy
+  args:
+    chdir: '{{ git_checkout_dir }}'
+
+# Step 4: Build the node
+- name: Build node
+  make:
+    chdir: '{{git_checkout_dir}}'
+    target: install
+
+# Step 5: Cleanup source
+- name: Cleanup source
+  file:
+    path: '{{git_checkout_dir}}'
+    state: absent
+
+# Step 6: Add configuration
+- name: Write Configuration
+  blockinfile: 
+    state: present
+    create: yes
+    insertafter: EOF
+    dest: '{{folder}}/config/config.toml'
+    content: |
+      [sidecar]
+      relayer_peer_string = "{{relayer_peer_string}}"
+      relayer_rpc_string = "{{relayer_rpc_string}}"
+      api_key = "{{skip_api_key}}"
+      personal_peer_ids = "{{relayer_personal_peer_id}}"
+
+# Step 7: Bounce the node
+- name: Restart Node
+  systemd:
+    state: restarted
+    name: '{{daemon}}'
+  become: true
