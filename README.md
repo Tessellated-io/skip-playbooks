@@ -34,7 +34,9 @@ $ ansible-playbook juno.yml --extra-vars skip_api_key=<your API key>
 This will install Skip on every host in `inventory.ini` that starts with the network name (ex. `juno.yml` would run on `juno-sentry-1`, `juno-sentry-2` and `juno-validator`).
 
 ## Tessellated
-![Tessellated](media/logo.png)
+[<img src="media/logo.png" width="100px" align="left" />](https://tessellated.io)
 
-Tessellated contributes to projects across the proof of stake landscape. If you find this project helpful, consider [delegating
+[Tessellated](https://tessellated.io) contributes to projects across the proof of stake landscape. 
+
+If you find this project helpful, consider [delegating
 to us in the future](https://www.mintscan.io/juno/account/juno12udz3pg72mr3yupsguf29nj3gfqlluwqsg4850)! 
