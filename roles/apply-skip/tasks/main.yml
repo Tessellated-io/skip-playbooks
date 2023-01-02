@@ -45,10 +45,10 @@
     dest: '{{folder}}/config/config.toml'
     content: |
       [sidecar]
-      relayer_peer_string = "{{relayer_peer_string}}"
-      relayer_rpc_string = "{{relayer_rpc_string}}"
+      sentinel_peer_string = "{{sentinel_peer_string}}"
+      sentinel_rpc_string = "{{sentinel_rpc_string}}"
       api_key = "{{skip_api_key}}"
-      personal_peer_ids = "{{relayer_personal_peer_id}}"
+      personal_peer_ids = "{{personal_peer_ids}}"
 
 # Step 7: Bounce the node
 - name: Restart Node

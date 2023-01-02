@@ -19,7 +19,7 @@ To start, copy `inventory.sample.ini` to `inventory.ini`, and customize the IP a
 
 In the `.yml` file corresponding to the network you wish to join (ex. `juno.yml`) there are two variables you may need to change:
   - `daemon` - Leave this as is if you do not use Cosmosvisor, or change to `cosmosvisor` if you do.
-  - `relayer_personal_peer_id` - Set this up if the node you are installing on is a sentry node, according to [Skip's documentation](https://www.notion.so/skip-protocol/mev-tendermint-8-b5f300d29c15466e863cd849121d6beb)
+  - `personal_peer_ids` - Set this up if the node you are installing on is a sentry node, according to [Skip's documentation](https://www.notion.so/skip-protocol/mev-tendermint-8-b5f300d29c15466e863cd849121d6beb)
 
 Additionally, you may want to glance over the other variables. For most systems, including one's deployed with Polkachu's playbooks,
 the default values should be up to date. If you happen to not anything out place (ex. wrong node or Skip version), feel free to send a PR! 
