@@ -1,0 +1,55 @@
+# Apply Skip to a Terra node
+- hosts: terra-*
+  gather_facts: false
+  become: false
+
+  vars:
+    ####################################################################################
+    # Variables to customize for your installation
+    ####################################################################################
+
+    # Daemon name. This will be restarted at the end of the playbook. 
+    # Use `terrad` if not using Cosmosvisor, or `cosmosvisor` if you are.
+    - daemon: terrad
+    # daemon: cosmosvisor
+
+    # Personal peer IDs if needed.
+    - relayer_personal_peer_id: ''
+
+    ####################################################################################
+    # Other variables - You likely don't need to modify anything below this line.
+    ####################################################################################
+
+    #-----------------------------------------
+    # Configuration for git checkout
+    #-----------------------------------------
+
+    # Repositority to clone
+    - repo: https://github.com/terra-money/core
+
+    # Version to checkout (tag, commit, or branch)
+    - node_version: v2.2.0
+
+    # Where to clone the code to. This folder is automatically cleaned up.
+    - git_checkout_dir: terra-source
+
+    #-----------------------------------------
+    # Configuration for Skip
+    #-----------------------------------------
+    
+    # Version of Skip's MEV Tendermint to substitute into the node.
+    - skip_version: v0.34.21-terra.1-mev.14
+    # Skip's sentinel peer
+    - sentinel_peer_string: "20a61f70d93af978a3bc1d6be634a57918934f79@phoenix-1-sentinel.skip.money:26656"
+    # Skip's relayer RPC
+    - sentinel_rpc_string: "http://phoenix-1-api.skip.money"
+
+    #-----------------------------------------
+    # Configuration for Node
+    #-----------------------------------------
+    
+    # Data folder for the node
+    - folder: '.terra'
+
+  roles:
+    - apply-skip
