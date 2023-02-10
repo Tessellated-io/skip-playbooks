@@ -28,7 +28,7 @@
     - repo: https://github.com/evmos/evmos
 
     # Version to checkout (tag, commit, or branch)
-    - node_version: v11.0.1
+    - node_version: v11.0.2
 
     # Where to clone the code to. This folder is automatically cleaned up.
     - git_checkout_dir: evmos-source
